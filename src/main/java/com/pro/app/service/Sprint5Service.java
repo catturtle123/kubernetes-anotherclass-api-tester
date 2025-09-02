@@ -22,13 +22,13 @@ public class Sprint5Service {
         this.api1RestTemplate = api1RestTemplate;
     }
 
-    public String connectionPoll(String serviceName) {
+    public String connectionPool(String serviceName, String path) {
 
         // Cust Service로 Reqeust 전송
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = api1RestTemplate.exchange(
-                "http://"+ serviceName+"/hostname",
+                "http://"+ serviceName+"/" +path,
                 HttpMethod.GET,
                 requestEntity,
                 String.class);
@@ -36,7 +36,18 @@ public class Sprint5Service {
         return response.getBody();
     }
 
+    public String makeError() {
+        String str = null;
+        // 무조건 NPE 발생
+        return str.toLowerCase();
+    }
 
-
-
+    public String gatewayTimeout() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "timeout test";
+    }
 }

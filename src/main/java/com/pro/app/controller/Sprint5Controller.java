@@ -17,15 +17,21 @@ public class Sprint5Controller {
     private Sprint5Service sprint5Service;
 
 
-    @GetMapping("/connection/{serviceName}")
+    @GetMapping("/connection/{serviceName}/{path}")
     @ResponseBody
-    public ResponseEntity<Object> connection(@PathVariable String serviceName)  {
+    public ResponseEntity<Object> connection(@PathVariable String serviceName, @PathVariable String path)  {
 
-        String body = sprint5Service.connectionPoll(serviceName);
+        String body = sprint5Service.connectionPool(serviceName, path);
         return ResponseEntity.ok(body);
     }
 
+    @GetMapping("/null-pointer-exception")
+    public String npeTest() {
+        return sprint5Service.makeError();
+    }
 
-
-
+    @GetMapping("/gateway-timeout")
+    public String gatewayTimeout() {
+        return sprint5Service.gatewayTimeout();
+    }
 }
