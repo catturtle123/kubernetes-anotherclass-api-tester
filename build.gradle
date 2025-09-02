@@ -20,6 +20,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.yaml:snakeyaml:1.33'
+	implementation 'io.kubernetes:client-java:19.0.0'
 	implementation 'io.kubernetes:client-java-api:19.0.0'
 	implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
