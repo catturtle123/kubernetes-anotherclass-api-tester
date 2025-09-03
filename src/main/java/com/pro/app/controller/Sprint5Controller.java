@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
 
 @RestController
 public class Sprint5Controller {
@@ -30,8 +32,11 @@ public class Sprint5Controller {
         return sprint5Service.makeError();
     }
 
-    @GetMapping("/gateway-timeout")
-    public String gatewayTimeout() {
-        return sprint5Service.gatewayTimeout();
+    @GetMapping("/service-unavailable")
+    public ResponseEntity<String> serviceUnavailable() {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)  // 503 상태 코드
+                .body("Service is temporarily unavailable. Please try again later.");
+
     }
 }

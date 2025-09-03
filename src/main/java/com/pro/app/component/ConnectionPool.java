@@ -10,6 +10,10 @@ import org.springframework.web.client.RestTemplate;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.core5.util.Timeout;
+
+
 
 @Component
 public class ConnectionPool {
@@ -22,12 +26,18 @@ public class ConnectionPool {
         cm.setMaxTotal(2);               // 전체 커넥션 수
         cm.setDefaultMaxPerRoute(1);     // 특정 호스트당 최대 커넥션 수
 
+        // RequestConfig에 timeout 설정
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setResponseTimeout(Timeout.ofSeconds(3))           // 요청 후 응답 최대 대기 시간
+                .build();
+
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setConnectionManager(cm)
+                .setDefaultRequestConfig(requestConfig)
                 .build();
 
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
-        factory.setConnectTimeout(3000);  // 연결 대기 시간
+        factory.setConnectTimeout(3000); // 연결 대기 시간 (3초)
 
         return new RestTemplate(factory);
     }

@@ -42,12 +42,4 @@ public class Sprint5Service {
         return str.toLowerCase();
     }
 
-    public String gatewayTimeout() {
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return "timeout test";
-    }
 }
