@@ -42,4 +42,13 @@ public class Sprint5Service {
         return str.toLowerCase();
     }
 
+    public void sleep() {
+        String str = null;
+        // 무조건 NPE 발생
+        try {
+            Thread.sleep(5*1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

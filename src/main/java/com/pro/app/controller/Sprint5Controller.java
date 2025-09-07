@@ -39,4 +39,9 @@ public class Sprint5Controller {
                 .body("Service is temporarily unavailable. Please try again later.");
 
     }
+
+    @GetMapping("/sleep")
+    public void sleep() {
+        sprint5Service.sleep();
+    }
 }
