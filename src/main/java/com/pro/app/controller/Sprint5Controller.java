@@ -1,6 +1,7 @@
 package com.pro.app.controller;
 
 import com.pro.app.component.FileUtils;
+import com.pro.app.service.DefaultService;
 import com.pro.app.service.Sprint5Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ public class Sprint5Controller {
     @Autowired
     private Sprint5Service sprint5Service;
 
+    @Autowired
+    private DefaultService defaultService;
 
     @GetMapping("/connection/{serviceName}/{path}")
     @ResponseBody
@@ -40,8 +43,13 @@ public class Sprint5Controller {
 
     }
 
-    @GetMapping("/sleep")
-    public void sleep() {
-        sprint5Service.sleep();
+    @GetMapping("/sleep/{podName}")
+    public ResponseEntity<Object> sleepPodName(@PathVariable String podName) {
+
+        String hostname =  defaultService.hostname();
+        if (podName.equals(hostname)) {
+            sprint5Service.sleep();
+        }
+        return ResponseEntity.ok(hostname);
     }
 }
