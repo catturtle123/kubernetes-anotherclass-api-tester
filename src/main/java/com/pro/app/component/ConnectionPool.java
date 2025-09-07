@@ -24,7 +24,6 @@ public class ConnectionPool {
     public RestTemplate api1RestTemplate() {
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setMaxTotal(2);               // 전체 커넥션 수
-        cm.setDefaultMaxPerRoute(1);     // 특정 호스트당 최대 커넥션 수
 
         // RequestConfig에 timeout 설정
         RequestConfig requestConfig = RequestConfig.custom()
