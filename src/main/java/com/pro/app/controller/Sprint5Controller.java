@@ -43,11 +43,11 @@ public class Sprint5Controller {
 
     }
 
-    @GetMapping("/sleep/{podName}")
-    public ResponseEntity<Object> sleepPodName(@PathVariable String podName) {
+    @GetMapping("/sleep")
+    public ResponseEntity<Object> sleepPodName(@RequestParam(defaultValue = "none") String podName) {
 
         String hostname =  defaultService.hostname();
-        if (podName.equals(hostname)) {
+        if (hostname.equals(podName)) {
             sprint5Service.sleep();
         }
         return ResponseEntity.ok(hostname);
