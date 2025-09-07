@@ -26,13 +26,13 @@ public class ConnectionPool {
         cm.setMaxTotal(2);               // 전체 커넥션 수
 
         // RequestConfig에 timeout 설정
-        RequestConfig requestConfig = RequestConfig.custom()
-                .setResponseTimeout(Timeout.ofSeconds(10))           // 요청 후 응답 최대 대기 시간
-                .build();
+//        RequestConfig requestConfig = RequestConfig.custom()
+//                .setResponseTimeout(Timeout.ofSeconds(3))           // 요청 후 응답 최대 대기 시간
+//                .build();
 
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setConnectionManager(cm)
-                .setDefaultRequestConfig(requestConfig)
+//                .setDefaultRequestConfig(requestConfig)
                 .build();
 
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
