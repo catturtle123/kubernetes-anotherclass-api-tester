@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+
 @Service
 public class Sprint5Service {
 
@@ -22,13 +24,20 @@ public class Sprint5Service {
         this.api1RestTemplate = api1RestTemplate;
     }
 
-    public String connectionPool(String serviceName, String path) {
+    public String connectionPool(String serviceName, String path, String podName) {
 
         // Cust Service로 Reqeust 전송
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        String url = "http://" + serviceName + "/" + path;
+
+        if (!podName.equals("none")) {
+            url = url + "?podName=" + podName;
+        }
+
         ResponseEntity<String> response = api1RestTemplate.exchange(
-                "http://"+ serviceName+"/" +path,
+                url,
                 HttpMethod.GET,
                 requestEntity,
                 String.class);
@@ -43,8 +52,6 @@ public class Sprint5Service {
     }
 
     public void sleep() {
-        String str = null;
-        // 무조건 NPE 발생
         try {
             Thread.sleep(5*1000);
         } catch (InterruptedException e) {

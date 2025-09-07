@@ -24,9 +24,9 @@ public class Sprint5Controller {
 
     @GetMapping("/connection/{serviceName}/{path}")
     @ResponseBody
-    public ResponseEntity<Object> connection(@PathVariable String serviceName, @PathVariable String path)  {
+    public ResponseEntity<Object> connection(@PathVariable String serviceName, @PathVariable String path, @RequestParam(defaultValue = "none") String podName)  {
 
-        String body = sprint5Service.connectionPool(serviceName, path);
+        String body = sprint5Service.connectionPool(serviceName, path, podName);
         return ResponseEntity.ok(body);
     }
 
@@ -47,7 +47,9 @@ public class Sprint5Controller {
     public ResponseEntity<Object> sleepPodName(@RequestParam(defaultValue = "none") String podName) {
 
         String hostname =  defaultService.hostname();
+        log.info("hostname: "+hostname);
         if (hostname.equals(podName)) {
+            log.info("sleep 5s:");
             sprint5Service.sleep();
         }
         return ResponseEntity.ok(hostname);
