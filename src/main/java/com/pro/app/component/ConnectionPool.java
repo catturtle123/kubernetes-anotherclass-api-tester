@@ -27,7 +27,7 @@ public class ConnectionPool {
 
         // RequestConfig에 timeout 설정
         RequestConfig requestConfig = RequestConfig.custom()
-                .setResponseTimeout(Timeout.ofSeconds(3))           // 요청 후 응답 최대 대기 시간
+                .setResponseTimeout(Timeout.ofSeconds(10))           // 요청 후 응답 최대 대기 시간
                 .build();
 
         CloseableHttpClient httpClient = HttpClients.custom()
