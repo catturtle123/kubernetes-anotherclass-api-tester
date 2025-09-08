@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -36,13 +37,19 @@ public class Sprint5Service {
             url = url + "?podName=" + podName;
         }
 
-        ResponseEntity<String> response = api1RestTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                requestEntity,
-                String.class);
+        try {
+            ResponseEntity<String> response = api1RestTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    requestEntity,
+                    String.class);
 
-        return response.getBody();
+            return response.getBody(); // 정상 응답
+        } catch (HttpStatusCodeException ex) {
+            // 여기서 body 꺼낼 수 있음
+            String errorBody = ex.getResponseBodyAsString();
+            return "Error " + ex.getStatusCode() + ": " + errorBody;
+        }
     }
 
     public String makeError() {

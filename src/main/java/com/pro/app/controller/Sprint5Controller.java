@@ -37,9 +37,12 @@ public class Sprint5Controller {
 
     @GetMapping("/service-unavailable")
     public ResponseEntity<String> serviceUnavailable() {
+
+        String hostname =  defaultService.hostname();
+
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)  // 503 상태 코드
-                .body("Service is temporarily unavailable. Please try again later.");
+                .body(hostname + " Service is temporarily unavailable. Please try again later.");
 
     }
 
