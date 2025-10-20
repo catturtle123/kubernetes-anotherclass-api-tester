@@ -11,5 +11,5 @@ volume-path:
 #  pod-volume-data: "C:\\volume\\local\\pod\\"
 
   # for mac
-  persistent-volume-data: "/users/<username>/IdeaProjects/volume/local/pv/"
-  pod-volume-data: "/users/<username>/IdeaProjects/volume/local/pod/"
+  persistent-volume-data: "/users/kimjunhwan/IdeaProjects/volume/local/pv/"
+  pod-volume-data: "/users/kimjunhwan/IdeaProjects/volume/local/pod/"
